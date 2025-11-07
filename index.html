@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RST 230 交互式测验 (V4 - 完整 40 题版)</title>
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f5f5f5;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+
+    #quiz-container {
+        max-width: 800px;
+        margin: 20px auto;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #005A9C;
+    }
+
+    .quiz-block {
+        background-color: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 6px;
+        margin-bottom: 20px;
+    }
+
+    .question-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 25px;
+        border-bottom: 1px solid #dcdcdc;
+    }
+
+    .question-title {
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    .question-pts {
+        font-size: 0.9em;
+        color: #555;
+        font-weight: 600;
+    }
+
+    .question-body {
+        padding: 25px;
+    }
+
+    .question-text {
+        font-size: 1.1em;
+        margin: 0 0 20px 0;
+    }
+
+    .option {
+        display: block;
+        margin-bottom: 10px;
+        cursor: pointer;
+        border-radius: 6px;
+    }
+    .option:hover {
+        background-color: #f0f0f0;
+    }
+    .option input {
+        margin-right: 10px;
+        vertical-align: middle;
+        transform: scale(1.1);
+    }
+    .option label {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 6px;
+    }
+    
+    .result-feedback {
+        margin-top: 20px;
+    }
+
+    .incorrect-feedback {
+        background-color: #fff1f0;
+        border: 1px solid #ffa39e;
+        border-left: 5px solid #f5222d;
+        padding: 15px;
+        border-radius: 5px;
+    }
+    .incorrect-feedback p {
+        font-size: 1em;
+        margin: 0 0 10px 0;
+        color: #d93025;
+    }
+    .incorrect-feedback .explanation {
+        font-size: 0.95em;
+        color: #333;
+    }
+
+    .correct-feedback {
+        background-color: #f6ffed;
+        border: 1px solid #b7eb8f;
+        border-left: 5px solid #52c41a;
+        padding: 15px;
+        border-radius: 5px;
+    }
+    .correct-feedback .explanation {
+        font-size: 0.95em;
+        color: #333;
+    }
+
+    #score-display {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #005A9C;
+    }
+</style>
+</head>
+<body>
+
+<h1>RST 230 交互式测验 (V4 - 完整版)</h1>
+<div id="quiz-container">
+    <div id="score-display"></div>
+
+    <form id="quiz-form">
+        </form>
+</div>
+
+<script>
+// 1. 答案和解释数据库 (40 题)
+const quizData = {
+    q1: { 
+        question: "social class is usually defined using these three indicators",
+        options: {
+            a: "income, education, and occupation",
+            b: "geographic location, savings, and reliance on social assistance",
+            c: "social networks, property, and skills",
+            d: "knowledge, cultural goods, and influence"
+        },
+        correctAnswer: "a", 
+        explanation: "社会阶层通常以“收入、教育水平和职业”三项指标来衡量。这三方面共同反映了个人的社会经济地位：收入代表经济资源，教育体现文化资本与机会获取能力，而职业则反映社会声望与社会角色。它们结合起来可揭示社会中的分层与资源分配差异。——见 Lecture 11《exam2》" 
+    },
+    q2: { 
+        question: "economic capital refers to",
+        options: {
+            a: "networks of economic support",
+            b: "education, knowledge, and skill",
+            c: "capital accumulated by a well-defined economic group",
+            d: "material wealth and economic resources"
+        },
+        correctAnswer: "d", 
+        explanation: "“经济资本”指个人或群体所拥有的可用于交换或积累的物质财富与经济资源，包括金钱、房产、金融资产等。这是布迪厄提出的三种资本之一（经济、社会、文化），代表社会地位和生活机会的重要基础。——见 Lecture 11《exam2》" 
+    },
+    q3: { 
+        question: "official poverty measure (opm)",
+        options: {
+            a: "provides a broader, more modern measure of poverty by accounting for additional economic resources, expenses, and regional cost-of-living differences",
+            b: "determines poverty status by comparing a household’s total pre-tax cash income to a set of poverty thresholds, which vary by family size, composition, and the age of the householder",
+            c: "is calculated as a fixed percentage of the median disposable household income in a specific country or region, adjusted for household size and composition",
+            d: "is contextual and moves with overall societal wealth"
+        },
+        correctAnswer: "b", 
+        explanation: "官方贫困标准（OPM）依据家庭税前现金收入与官方贫困线进行比较来确定贫困状态。贫困线会因家庭规模、结构及户主年龄不同而调整。若收入低于此线，则该家庭被视为贫困。OPM未计入非现金福利或地区生活成本差异。——见 Lecture 11《exam2》" 
+    },
+    q4: { 
+        question: "the official poverty rate in 2024 in the u.s. was",
+        options: {
+            a: "23.3%",
+            b: "5.2%",
+            c: "17.1%",
+            d: "10.6%"
+        },
+        correctAnswer: "d", 
+        explanation: "根据美国人口普查局（2025）数据，2024 年美国官方贫困率为 10.6%，约 3590 万人生活在贫困线以下。这一比例基于官方贫困测度（OPM），仅考虑税前现金收入，不包括食品券、住房补助等非现金支持，也未调整地区生活成本。——见 Lecture 11《exam2》" 
+    },
+    q5: { 
+        question: "which one of the following is not one of the categories of unemployed people",
+        options: {
+            a: "job losers and persons who completed temporary jobs",
+            b: "job leavers",
+            c: "reentrants",
+            d: "forced entrants"
+        },
+        correctAnswer: "d", 
+        explanation: "美国劳工统计局（U.S. Bureau of Labor Statistics）将失业者分为四类：①失业者与完成临时工作者（job losers and temporary job completers）；②主动离职者（job leavers）；③重返劳动力市场者（reentrants）；④首次进入劳动力市场者（new entrants）。官方并没有“forced entrants（被迫进入者）”这一分类，因此它不是标准的失业类别。——见 Lecture 12《exam2》" 
+    },
+    q6: { 
+        question: "which of the following states has the largest population of people experiencing homelessness",
+        options: {
+            a: "illinois",
+            b: "california",
+            c: "florida",
+            d: "alaska"
+        },
+        correctAnswer: "b", 
+        explanation: "根据美国住房与城市发展部（HUD, 2024）的数据，加利福尼亚州拥有美国无家可归者人口最多的州。这主要源于高昂的住房成本、租金上涨快于收入、可负担住房短缺以及温和气候等因素。洛杉矶、旧金山和圣地亚哥等城市集中了该州大部分无家可归人口。——见 Lecture 13《exam2》" 
+    },
+    q7: { 
+        question: "what caused the recent rise in homelessness rates in the u.s.",
+        options: {
+            a: "extremely high housing costs",
+            b: "increased medicaid subsidies",
+            c: "increasing population of older adults",
+            d: "fewer people being eligible for snap (the supplemental nutrition assistance program) benefits"
+        },
+        correctAnswer: "a", 
+        explanation: "美国无家可归人数近年来显著上升，主要原因是住房成本极高。房租和房价上涨速度远超工资增长，使低收入家庭难以负担住房。尤其在大城市中，住房供需严重失衡，导致越来越多人失去稳定住所。——见 Lecture 13《exam2》" 
+    },
+    q8: { 
+        question: "which of the following is not one of the benefits of leisure for people experiencing homelessness",
+        options: {
+            a: "helping people keep their mind off problems they are experiencing",
+            b: "helping to maintain physical and mental well-being",
+            c: "helping to maintain a sense of normalcy",
+            d: "helping to increase their isolation"
+        },
+        correctAnswer: "d", 
+        explanation: "对无家可归者而言，休闲活动能带来重要的心理与社会效益：有助于减轻压力、改善身心健康、保持生活规律感与社会联系。休闲促进社会融入与归属感，而非增加孤立感。因此“帮助增加孤立”不是休闲的益处，而恰恰相反。——见 Lecture 13《exam2》" 
+    },
+    q9: { 
+        question: "what was the life expectancy in the u.s. in 2024",
+        options: {
+            a: "84.1 years",
+            b: "79.1 years",
+            c: "67.3 years",
+            d: "93.1 years"
+        },
+        correctAnswer: "b", 
+        explanation: "2024 年美国的平均预期寿命为 79.1 岁。男性约 76.7 岁，女性约 81.6 岁。相比疫情期间的下降，寿命已恢复并略有增长。寿命差异与性别、种族及社会经济因素有关。——见 Lecture 14《exam2》" 
+    },
+    q10: { 
+        question: "what is the main reason we are experiencing a rapid increase in the number of older adults in the u.s.",
+        options: {
+            a: "lower fertility rates among younger generations",
+            b: "increase in life expectancy",
+            c: "immigration of older people from europe",
+            d: "immigration of older people from asia"
+        },
+        correctAnswer: "b", 
+        explanation: "b. increase in life expectancy (预期寿命增加)，或者（如果选项里有的话）Baby boom generation is retiring。因为这两者是真正 增加 老年人绝对数量的因素。。——见 Lecture 14《exam2》" 
+    },
+    q11: { 
+        question: "what is the main source of income for people over 65 years of age",
+        options: {
+            a: "earnings",
+            b: "pensions",
+            c: "assets",
+            d: "social security"
+        },
+        correctAnswer: "d", 
+        explanation: "对于美国 65 岁及以上的老年人而言，社会保障金（Social Security）是主要收入来源。它为退休后的人群提供稳定的月度补助，确保基本生活水平。虽然部分人还有储蓄、养老金或投资收益，但社会保障仍是大多数老年人的经济支柱，有助于降低老年贫困率。——见 Lecture 14《exam2》" 
+    },
+    q12: { 
+        question: "life expectancy",
+        options: {
+            a: "is a person’s outlook on their financial and psychological well-being in the future",
+            b: "relates to the ratio of births to deaths per 1000 population",
+            c: "is a fixed maximum age for the human species",
+            d: "is the projected number of years that an individual is expected to live based on their genetic heritage and on the environmental conditions"
+        },
+        correctAnswer: "d", 
+        explanation: "“预期寿命”（life expectancy）指根据个人的遗传因素与环境条件所预计的平均寿命。它反映出生理、心理与社会条件对寿命的综合影响。并非固定不变的年龄上限，而是随医疗水平与生活环境改善而变化的统计指标。——见 Lecture 14《exam2》" 
+    },
+    q13: { 
+        question: "the senior dependency ratio (also called old age dependency ratio) is calculated by",
+        options: {
+            a: "dividing the population aged 65 and older by the working-age population (18–64) and multiplying it by 100",
+            b: "multiplying the population aged 65 and older by the working-age population (18–64)",
+            c: "dividing the working-age population (18–64) by the population aged 65 and older and multiplying it by 100",
+            d: "dividing the population aged 65 and older by the population under 18 years of age"
+        },
+        correctAnswer: "a", 
+        explanation: "老年抚养比（Senior Dependency Ratio, SDR）表示 65 岁以上人口相对于劳动年龄人口（18–64 岁）的比例，并以百分比表示。该比值越高，说明每个劳动者需负担的老年人口越多，会影响社会保障体系和经济活力。——见 Lecture 14《exam2》" 
+    },
+    q14: { 
+        question: "which three states have the highest proportion of older adults",
+        options: {
+            a: "texas, california, and nevada",
+            b: "maine, florida, and vermont",
+            c: "oregon, maryland, and utah",
+            d: "new york, north dakota, and illinois"
+        },
+        correctAnswer: "b", 
+        explanation: "缅因州、佛罗里达州和佛蒙特州是美国老年人口比例最高的三个州。佛罗里达州因气候温暖吸引退休移民，缅因与佛蒙特则因出生率低和青年外流造成老龄化突出。这些州因此对医疗、养老住房及社会服务需求增加。——见 Lecture 14《exam2》" 
+    },
+    q15: { 
+        question: "what is not true about changes in the cardiovascular system related to aging",
+        options: {
+            a: "as people age, their arterial walls stiffen",
+            b: "as people age, their heart valves calcify",
+            c: "as people age, their cardiac output increases",
+            d: "as people age, their blood vessels narrow"
+        },
+        correctAnswer: "c", 
+        explanation: "随着年龄增长，心血管系统发生多种变化：动脉壁变硬、心脏瓣膜钙化、血管变窄，而心输出量（每分钟泵血量）通常下降，因为心肌收缩能力减弱。因此“心输出量随年龄增加而上升”是错误的。——见 Lecture 15《exam2》" 
+    },
+    q16: { 
+        question: "fluid intelligence",
+        options: {
+            a: "is genetically determined",
+            b: "increases with age",
+            c: "is represented by the accumulated knowledge or abilities",
+            d: "remains largely unchanged after puberty"
+        },
+        correctAnswer: "d", 
+        explanation: "“流体智力”（Fluid intelligence）是指在不依赖已有知识的情况下进行逻辑推理、抽象思考和解决新问题的能力。它通常在青年时期达到峰值，随后随年龄增长而逐渐下降，与“晶体智力”不同，后者依赖经验与学习积累。（注：选项d '青春期后基本不变' 是对'青年期达峰'的近似描述，在选项中相对最佳）——见 Lecture 16《exam2》" 
+    },
+    q17: { 
+        question: "balance leisure activities refer to activities that",
+        options: {
+            a: "older adults can no longer perform due to problems with maintaining balance",
+            b: "do not require much skills and resources, and remain stable over the life of an individual",
+            c: "require skills and resources, and change in response to changing roles and responsibilities",
+            d: "are prescribed to older adults by medical professionals since they help them to improve balance"
+        },
+        correctAnswer: "c", 
+        explanation: "“平衡性休闲活动”（Balance leisure activities）指那些需要一定技能与资源，并随生活角色或责任变化而调整的活动，如旅行、志愿服务、运动等。它们帮助个体在不同阶段保持成长与生活满足感。——见 Lecture 16《exam2》" 
+    },
+    q18: { 
+        question: "which of the following is not an example of a core leisure activity",
+        options: {
+            a: "basketball",
+            b: "reading",
+            c: "walking",
+            d: "watching tv"
+        },
+        correctAnswer: "a", 
+        explanation: "“核心休闲活动”（Core leisure activities）是指简单、日常、低成本且容易持续进行的活动，如阅读、散步、看电视等。篮球属于需要较多体能、设备与团队协作的“平衡型休闲活动”，因此不属于核心休闲范畴。——见 Lecture 16《exam2》" 
+    },
+    q19: { 
+        question: "which of the following is an example of a disability",
+        options: {
+            a: "severed nerves in the spine",
+            b: "inability to attend school",
+            c: "inability to walk",
+            d: "a broken leg"
+        },
+        correctAnswer: "c", 
+        explanation: "“残疾”（Disability）指因身体或心理功能障碍而限制个体执行日常活动的长期状态。行走能力丧失直接影响日常生活与社会参与，是典型的残疾表现。而神经损伤是“损伤”（impairment），不是功能限制本身。——见 Lecture 17《exam2》" 
+    },
+    q20: { 
+        question: "arthritis is",
+        options: {
+            a: "a group of conditions that involve inflammation of the joint",
+            b: "a group of conditions that involve progressive changes in the central nervous system",
+            c: "a group of conditions that involve degeneration and weakness of voluntary muscles",
+            d: "a group of conditions that involve degeneration of the motor portions of the brain"
+        },
+        correctAnswer: "a", 
+        explanation: "“关节炎”（Arthritis）是一类导致关节发炎、疼痛与僵硬的疾病总称，常见类型包括骨关节炎与类风湿性关节炎。其主要表现为关节红肿与运动受限，属于进行性或慢性炎症疾病，而非中枢神经或肌肉退化问题。——见 Lecture 17《exam2》" 
+    },
+    q21: { 
+        question: "what are the common symptoms of osteoarthritis",
+        options: {
+            a: "stomach aches, rashes, dizziness, and blurred vision",
+            b: "flu-like symptoms (e.g., feeling “sick all over,” fever, and enlarged lymph nodes)",
+            c: "stiffness of joints and pain felt during movement",
+            d: "hair loss and problems with concentration"
+        },
+        correctAnswer: "c", 
+        explanation: "骨关节炎（Osteoarthritis）是一种由关节软骨退化引起的慢性疾病，其典型症状为关节僵硬、疼痛及活动受限。疼痛在运动时加剧、休息后缓解，常见于膝、髋、脊柱及手指关节。病程进展会导致关节肿胀、摩擦音及活动范围减少。——见 Lecture 17《exam2》" 
+    },
+    q22: { 
+        question: "many people with dyskinetic cerebral palsy experience",
+        options: {
+            a: "uncontrolled, slow, twisting movements of muscles, particularly in the limbs, face, and trunk",
+            b: "disturbance of balance and a sense of direction",
+            c: "intention tremor",
+            d: "stiff and permanently contracted muscles"
+        },
+        correctAnswer: "a", 
+        explanation: "手足徐动型脑性瘫痪（Dyskinetic cerebral palsy）是一种以不自主、缓慢且扭曲的肢体运动为特征的脑瘫类型。常影响手臂、腿和面部肌肉，表现为无法控制的扭动。其原因是基底节受损，导致运动调节障碍。——见 Lecture 17《exam2》" 
+    },
+    q23: { 
+        question: "common symptoms of multiple sclerosis include",
+        options: {
+            a: "numbness and tingling in hands and feet",
+            b: "frequent and recurring headaches",
+            c: "paralysis of chest muscles",
+            d: "abnormal growth of facial hair"
+        },
+        correctAnswer: "a", 
+        explanation: "多发性硬化症（Multiple Sclerosis, MS）是一种中枢神经系统自身免疫疾病，会损伤神经纤维外层的髓鞘，导致神经信号传导障碍。常见症状包括四肢麻木、刺痛、疲劳、协调困难及视力模糊等。其中手脚的感觉异常是最早期和最常见的表现之一。——见 Lecture 17《exam2》" 
+    },
+    q24: { 
+        question: "what is true about childhood muscular dystrophy",
+        options: {
+            a: "it affects mostly girls",
+            b: "it is the least serious form of muscular dystrophy",
+            c: "it affects mostly boys",
+            d: "it can easily be cured with antibiotics"
+        },
+        correctAnswer: "c", 
+        explanation: "儿童型肌营养不良（尤其是杜氏肌营养不良，Duchenne Muscular Dystrophy, DMD）主要影响男孩，因为其致病基因位于 X 染色体上。女性多为携带者而不发病。DMD 表现为肌肉无力、萎缩，通常在幼年期发作，目前尚无治愈方法，但可通过康复和药物延缓进展。——见 Lecture 17《exam2》" 
+    },
+    q25: { 
+        question: "limb girdle muscular dystrophy",
+        options: {
+            a: "involves paralysis of leg muscles",
+            b: "is the most serious form of muscular dystrophy",
+            c: "involves paralysis of shoulder and hip (pelvic) muscles",
+            d: "involves facial paralysis"
+        },
+        correctAnswer: "c", 
+        explanation: "肢带型肌营养不良（Limb Girdle Muscular Dystrophy, LGMD）是一组遗传性肌肉疾病，主要影响肩带与骨盆带区域的肌肉，表现为逐渐加重的无力与萎缩。患者常表现为上楼、提举困难，病情进展缓慢但长期影响生活能力。——见 Lecture 17《exam2》" 
+    },
+    q26: { 
+        question: "what is true about polio",
+        options: {
+            a: "it is caused by temporary changes in the electrical functioning of the brain",
+            b: "one of the symptoms of polio is excruciating pain in lower extremities",
+            c: "it involves dizziness and hallucinations",
+            d: "it can cause paralysis or weakness"
+        },
+        correctAnswer: "d", 
+        explanation: "脊髓灰质炎（Polio）是一种由脊髓灰质炎病毒引起的传染病。多数感染者症状轻微，但严重病例中病毒会攻击脊髓中的运动神经元，导致肌肉无力或永久性瘫痪。通过疫苗接种，该疾病在全球范围内已大幅减少。——见 Lecture 17《exam2》" 
+    },
+    q27: { 
+        question: "spina bifida",
+        options: {
+            a: "is a congenital deformity of the brain in which one or more of the lobes fail to develop",
+            b: "is a congenital deformity of the upper respiratory system",
+            c: "is a congenital deformity of the vertebrae in which one or more of the vertebral arches fail to close",
+            d: "is a congenital abnormality of the cardiovascular system in which the heart muscle stops to develop in the 20th week of pregnancy"
+        },
+        correctAnswer: "c", 
+        explanation: "脊柱裂（Spina bifida）是一种神经管缺陷，在胎儿早期发育阶段，部分椎弓未能完全闭合导致脊髓暴露或受损。严重者会造成下肢瘫痪或大小便失禁。病变可分为隐性脊柱裂与显性脊柱裂两类。——见 Lecture 17《exam2》" 
+    },
+    q28: { 
+        question: "a person with spina bifida occulta has",
+        options: {
+            a: "a dimple or a dark-colored birthmark at the level of spinal opening",
+            b: "a cyst on the spine that contains cerebrospinal fluid",
+            c: "a brown or pinkish “sack” on their spine",
+            d: "one extra vertebra in their spine"
+        },
+        correctAnswer: "a", 
+        explanation: "隐性脊柱裂（Spina bifida occulta）是最轻微的类型，通常仅表现为一处椎弓未闭，但脊髓与神经未受损。外观上常见背部有小凹陷、毛发丛或深色胎记。多无症状，常在影像检查时偶然发现。——见 Lecture 17《exam2》" 
+    },
+    q29: { 
+        question: "an open head injury refers to",
+        options: {
+            a: "an injury that does not have any negative impact on the brain structure",
+            b: "an injury in which rapid release of the brain tissue from the brain cavity was stopped early enough to prevent any serious brain damage",
+            c: "an entry of an object into the brain through the skull or an inward cracking of the skull",
+            d: "an injury that involves a brief loss of consciousness"
+        },
+        correctAnswer: "c", 
+        explanation: "开放性颅脑损伤（Open head injury）是指外物穿透颅骨或导致颅骨塌陷，从而直接损伤脑组织的情况。常见于枪击、锐器或严重车祸。此类损伤风险极高，易发生感染、出血及严重脑功能障碍。——见 Lecture 18《exam2》" 
+    },
+    q30: { 
+        question: "an injury to the frontal lobe can lead to",
+        options: {
+            a: "changes in personality and impaired decision-making",
+            b: "changes in breathing, heart rate, and blood pressure",
+            c: "changes in visual perception and hearing",
+            d: "problems with motor coordination and balance"
+        },
+        correctAnswer: "a", 
+        explanation: "额叶损伤（Frontal lobe injury）常导致个体在行为与情绪上发生显著变化，如冲动、判断力下降、动机缺乏或性格转变。额叶主管高级认知功能（如计划、决策与社会行为），因此受损后多表现为执行功能障碍，而非感觉或运动能力丧失。——见 Lecture 18《exam2》" 
+    },
+    q31: { 
+        question: "cte (chronic traumatic encephalopathy) is",
+        options: {
+            a: "a non-progressive disease resulting from damage to the motor portion of the brain",
+            b: "a progressive degenerative disease of the brain resulting from repeated tbis",
+            c: "a progressive disease of the central nervous system in which a protective tissue at the nerve endings (myelin) disappears",
+            d: "a viral disease of the central nervous system caused by a virus"
+        },
+        correctAnswer: "b", 
+        explanation: "慢性创伤性脑病（Chronic Traumatic Encephalopathy, CTE）是一种由反复脑部外伤（如运动员或军人常见的脑震荡）引起的渐进性神经退行性疾病。其特征是脑内异常 tau 蛋白沉积，导致记忆力减退、情绪波动、冲动行为及认知障碍。随着损伤累积，脑组织逐步退化。——见 Lecture 18《exam2》" 
+    },
+    q32: { 
+        question: "the most common cause of spinal cord injuries is/are",
+        options: {
+            a: "falls",
+            b: "violence",
+            c: "motor vehicle accidents",
+            d: "sport accidents"
+        },
+        correctAnswer: "c", 
+        explanation: "机动车事故是脊髓损伤（SCI）的最常见原因，尤其在青壮年群体中占多数。撞击或翻车时强烈的外力可导致脊髓压迫、撕裂或断裂，从而引发瘫痪。其他常见原因包括跌倒、暴力事件和运动伤害，但车祸仍是首要来源。——见 Lecture 18《exam2》" 
+    },
+    q33: { 
+        question: "which of the following could be affected by an injury to the lumbar vertebra",
+        options: {
+            a: "arm muscles",
+            b: "chest muscles",
+            c: "head and neck muscles",
+            d: "leg muscles"
+        },
+        correctAnswer: "d", 
+        explanation: "腰椎（Lumbar vertebra）位于下背部，负责支撑身体重量并保护控制下肢运动的神经。若此处受伤，常导致双腿无力、麻木甚至瘫痪。腰椎损伤不影响上肢或呼吸功能，但会严重限制行走和站立能力。——见 Lecture 18《exam2》" 
+    },
+    q34: { 
+        question: "what is the most common cause of death among people who have survived the initial spinal cord injury",
+        options: {
+            a: "suicide",
+            b: "respiratory diseases / pneumonia",
+            c: "heart attack",
+            d: "bedsores"
+        },
+        correctAnswer: "b", 
+        explanation: "在幸存初次脊髓损伤的患者中，呼吸系统疾病（特别是肺炎）是最主要的死亡原因。尤其是颈段脊髓损伤，会削弱呼吸和咳嗽肌肉功能，增加感染风险。呼吸障碍及肺部感染成为长期并发症中最致命的因素。——见 Lecture 18《exam2》" 
+    },
+    q35: { 
+        question: "quadriplegia",
+        options: {
+            a: "is a condition in which people experience partial or complete loss of function in both their arms and legs",
+            b: "is a condition in which people experience partial or complete loss of function only in their legs",
+            c: "is a condition in which people experience partial or complete loss of function only in their arms",
+            d: "results from an injury to the sacral area in the spine"
+        },
+        correctAnswer: "a", 
+        explanation: "四肢瘫（Quadriplegia 或 Tetraplegia）是由颈椎区脊髓损伤引起的，导致上肢与下肢全部或部分运动及感觉功能丧失。严重者还可能影响呼吸肌群功能。损伤部位越高，功能受限越严重。——见 Lecture 18《exam2》" 
+    },
+    q36: { 
+        question: "the numbers of veterans experiencing homelessness in the u.s. are increasing",
+        options: {
+            a: "true",
+            b: "false"
+        },
+        correctAnswer: "a", 
+        explanation: "近年来，美国退伍军人（Veterans）无家可归人数在经历一度下降后又出现上升趋势。主要原因包括住房成本上涨、心理健康问题（如 PTSD）、药物滥用及医疗服务不足。虽然政府提供住房援助项目，但仍无法满足需求。——见 Lecture 13《exam2》" 
+    },
+    q37: { 
+        question: "short term memory is the memory where information is stored and temporarily held",
+        options: {
+            a: "true",
+            b: "false"
+        },
+        correctAnswer: "a", 
+        explanation: "短期记忆（Short-term memory）是指信息在大脑中短暂保持与操作的能力，通常持续几秒到一分钟。若不主动复述，信息会迅速消失。短期记忆是工作记忆系统的核心部分，在日常思考、决策和语言理解中起关键作用。——见 Lecture 16《exam2》" 
+    },
+    q38: { 
+        question: "NVG-291 injectable drug is one of the most promising new treatments for SCIs",
+        options: {
+            a: "true",
+            b: "false"
+        },
+        correctAnswer: "a", 
+        explanation: "NVG-291 是一种新型注射药物，被认为是脊髓损伤（SCI）治疗领域的重大突破。它通过抑制抑制性分子作用，促进神经再生与重连，从而恢复部分运动功能。早期临床试验结果显示，该药能显著改善脊髓损伤患者的神经修复潜力。——见 Lecture 19《exam2》" 
+    },
+    q39: { 
+        question: "chronic homelessness is defined by recurrent episodes, with at least three instances of homelessness within a year",
+        options: {
+            a: "true",
+            b: "false"
+        },
+        correctAnswer: "b", 
+        explanation: "“长期无家可归”（Chronic homelessness）的定义为连续无家可归至少一年，或在过去三年中经历四次或以上的无家可归，并伴有残疾、精神疾病或药物成瘾等状况。并非“三次以内的一年内重复”即可定义。——见 Lecture 13《exam2》" 
+    },
+    q40: { 
+        question: "divorce rates among adults over 50 years of age are decreasing",
+        options: {
+            a: "true",
+            b: "false"
+        },
+        correctAnswer: "b", 
+        explanation: "美国 50 岁以上人群的离婚率并未下降，反而在过去二十年持续上升，被称为“灰发离婚”（Gray Divorce）。这一现象与寿命延长、性别角色变化及女性经济独立性增强有关。许多中老年人选择在晚年追求个人幸福与自主生活。——见 Lecture 14《exam2》" 
+    }
+};
+
+const totalQuestions = Object.keys(quizData).length;
+const formContainer = document.getElementById('quiz-form');
+
+// 2. 动态生成 HTML
+function buildQuiz() {
+    let quizHTML = '';
+    let qNum = 1;
+    for (const qId in quizData) {
+        const q = quizData[qId];
+        let optionsHTML = '';
+        
+        for (const optionKey in q.options) {
+            optionsHTML += `
+                <label class="option">
+                    <input type="radio" name="${qId}" value="${optionKey}"> ${q.options[optionKey]}
+                </label>
+            `;
+        }
+        
+        quizHTML += `
+            <div class="quiz-block question-block">
+                <div class="question-header">
+                    <span class="question-title">Question ${qNum}</span>
+                    <span class="question-pts">1 pts</span>
+                </div>
+                <div class="question-body">
+                    <p class="question-text">${q.question}</p>
+                    ${optionsHTML}
+                    <div class="result-feedback"></div>
+                </div>
+            </div>
+        `;
+        qNum++;
+    }
+    formContainer.innerHTML = quizHTML;
+}
+
+// 3. 更新总分的功能
+function updateScore() {
+    let score = 0;
+    for (const qId in quizData) {
+        const selected = document.querySelector(`input[name="${qId}"]:checked`);
+        if (selected && selected.value === quizData[qId].correctAnswer) {
+            score++;
+        }
+    }
+    document.getElementById('score-display').innerHTML = `总分: ${score} / ${totalQuestions}`;
+}
+
+// 4. 检查答案的功能 (每次点击时触发)
+function checkAnswer(event) {
+    const radio = event.target;
+    // 确保点击的是单选按钮
+    if (radio.type !== 'radio') return;
+    
+    const qId = radio.name;
+    const userAnswer = radio.value;
+    
+    const q = quizData[qId];
+    const questionBlock = radio.closest('.question-block');
+    const feedback = questionBlock.querySelector('.result-feedback');
+
+    if (userAnswer === q.correctAnswer) {
+        // 答案正确
+        feedback.innerHTML = `<div class="correct-feedback"><strong>✅ 正确!</strong><br><span class="explanation">${q.explanation}</span></div>`;
+    } else {
+        // 答案错误
+        feedback.innerHTML = `
+            <div class="incorrect-feedback">
+                <p><strong>❌ 回答错误。</strong></p>
+                <div class="explanation"><strong>正确原因:</strong> ${q.explanation}</div>
+            </div>`;
+    }
+    
+    // 每次检查答案后都更新总分
+    updateScore();
+}
+
+// 5. 页面加载时构建测验
+buildQuiz();
+
+// 6. 为所有单选按钮添加事件监听器 (使用事件委托)
+formContainer.addEventListener('click', checkAnswer);
+
+// 7. 页面加载时初始化分数
+updateScore();
+
+</script>
+</body>
+</html>
