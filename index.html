@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RST 230 交互式测验 (V4 - 完整 40 题版)</title>
+<title>交互式测验 (40 题版)</title>
 <style>
     body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -125,7 +125,7 @@
 </head>
 <body>
 
-<h1>RST 230 交互式测验 (V4 - 完整版)</h1>
+<h1>交互式测验 (40 题版)</h1>
 <div id="quiz-container">
     <div id="score-display"></div>
 
@@ -137,434 +137,444 @@
 // 1. 答案和解释数据库 (40 题)
 const quizData = {
     q1: { 
-        question: "social class is usually defined using these three indicators",
+        question: "Acuity describes",
         options: {
-            a: "income, education, and occupation",
-            b: "geographic location, savings, and reliance on social assistance",
-            c: "social networks, property, and skills",
-            d: "knowledge, cultural goods, and influence"
+            a: "The distance to the closest object a person can see",
+            b: "The ability to distinguish colors at normal circumstances and in perfect light conditions",
+            c: "The amount of detail an individual sees compared to what a person with normal vision sees",
+            d: "The entire area that can be seen at one time with a fixed eye"
         },
-        correctAnswer: "a", 
-        explanation: "社会阶层通常以“收入、教育水平和职业”三项指标来衡量。这三方面共同反映了个人的社会经济地位：收入代表经济资源，教育体现文化资本与机会获取能力，而职业则反映社会声望与社会角色。它们结合起来可揭示社会中的分层与资源分配差异。——见 Lecture 11《exam2》" 
+        correctAnswer: "c", 
+        explanation: "视敏度（Visual Acuity）主要描述视觉的清晰度或敏锐度，即个体分辨细节的能力。通常通过视力表测试，与正常视力标准进行对比。——见相关视力障碍讲义" 
     },
     q2: { 
-        question: "economic capital refers to",
+        question: "A person with \"peripheral vision\"",
         options: {
-            a: "networks of economic support",
-            b: "education, knowledge, and skill",
-            c: "capital accumulated by a well-defined economic group",
-            d: "material wealth and economic resources"
+            a: "Can see the back (the so called \"periphery\") of their eye",
+            b: "Can only see straight ahead and not to the sides",
+            c: "Can see black dots in the periphery of their eye",
+            d: "Can only see to the sides but not straight ahead"
         },
         correctAnswer: "d", 
-        explanation: "“经济资本”指个人或群体所拥有的可用于交换或积累的物质财富与经济资源，包括金钱、房产、金融资产等。这是布迪厄提出的三种资本之一（经济、社会、文化），代表社会地位和生活机会的重要基础。——见 Lecture 11《exam2》" 
+        explanation: "只有周边视觉（Peripheral vision）意味着中心视力丧失，患者只能看到视野边缘（侧面）的物体，而无法看清正前方的物体（如黄斑变性可能导致此症状）。——见相关视力障碍讲义" 
     },
     q3: { 
-        question: "official poverty measure (opm)",
+        question: "Cataracts",
         options: {
-            a: "provides a broader, more modern measure of poverty by accounting for additional economic resources, expenses, and regional cost-of-living differences",
-            b: "determines poverty status by comparing a household’s total pre-tax cash income to a set of poverty thresholds, which vary by family size, composition, and the age of the householder",
-            c: "is calculated as a fixed percentage of the median disposable household income in a specific country or region, adjusted for household size and composition",
-            d: "is contextual and moves with overall societal wealth"
+            a: "Involve a clouding of the eye's natural lens",
+            b: "Are casued by damage to the occipital lobe of the brain",
+            c: "Involve changes in blood vessels in the retina",
+            d: "Are caused by an increased pressure in the eye"
         },
-        correctAnswer: "b", 
-        explanation: "官方贫困标准（OPM）依据家庭税前现金收入与官方贫困线进行比较来确定贫困状态。贫困线会因家庭规模、结构及户主年龄不同而调整。若收入低于此线，则该家庭被视为贫困。OPM未计入非现金福利或地区生活成本差异。——见 Lecture 11《exam2》" 
+        correctAnswer: "a", 
+        explanation: "白内障（Cataracts）的病理特征是眼球晶状体（lens）变得混浊，阻碍光线进入，导致视力模糊。——见相关眼科病理讲义" 
     },
     q4: { 
-        question: "the official poverty rate in 2024 in the u.s. was",
+        question: "What are the most common symptoms of age-related macular degeneration (AMD)?",
         options: {
-            a: "23.3%",
-            b: "5.2%",
-            c: "17.1%",
-            d: "10.6%"
+            a: "Sensitivity to light and glare",
+            b: "Black spots floating in the visual field",
+            c: "Loss of peripheral vision",
+            d: "Blurred or distorted central vision"
         },
         correctAnswer: "d", 
-        explanation: "根据美国人口普查局（2025）数据，2024 年美国官方贫困率为 10.6%，约 3590 万人生活在贫困线以下。这一比例基于官方贫困测度（OPM），仅考虑税前现金收入，不包括食品券、住房补助等非现金支持，也未调整地区生活成本。——见 Lecture 11《exam2》" 
+        explanation: "老年性黄斑变性（AMD）主要影响视网膜中心的黄斑区，因此其典型症状是中心视力模糊、扭曲或出现盲点，而不影响周边视力。——见相关视力障碍讲义" 
     },
     q5: { 
-        question: "which one of the following is not one of the categories of unemployed people",
+        question: "Deafness",
         options: {
-            a: "job losers and persons who completed temporary jobs",
-            b: "job leavers",
-            c: "reentrants",
-            d: "forced entrants"
+            a: "Is the general term used to describe all types of hearing loss",
+            b: "Is a state occurring when a person is unable to understand speech through the ear alone, either with or without a hearing aid",
+            c: "Is a state occurring when a person has moderate to severe hearing loss",
+            d: "Is a state occurring when a person has mild to moderate hearing loss"
         },
-        correctAnswer: "d", 
-        explanation: "美国劳工统计局（U.S. Bureau of Labor Statistics）将失业者分为四类：①失业者与完成临时工作者（job losers and temporary job completers）；②主动离职者（job leavers）；③重返劳动力市场者（reentrants）；④首次进入劳动力市场者（new entrants）。官方并没有“forced entrants（被迫进入者）”这一分类，因此它不是标准的失业类别。——见 Lecture 12《exam2》" 
+        correctAnswer: "b", 
+        explanation: "根据定义，“全聋”（Deafness）是指听力损失程度严重到无论是否佩戴助听器，都无法仅凭听觉理解语音。——见相关听力障碍定义讲义" 
     },
     q6: { 
-        question: "which of the following states has the largest population of people experiencing homelessness",
+        question: "Which of the following is the most common cause of acquired hearing loss?",
         options: {
-            a: "illinois",
-            b: "california",
-            c: "florida",
-            d: "alaska"
+            a: "Head trauma",
+            b: "Aging",
+            c: "Rh incompatibility",
+            d: "Genetic"
         },
         correctAnswer: "b", 
-        explanation: "根据美国住房与城市发展部（HUD, 2024）的数据，加利福尼亚州拥有美国无家可归者人口最多的州。这主要源于高昂的住房成本、租金上涨快于收入、可负担住房短缺以及温和气候等因素。洛杉矶、旧金山和圣地亚哥等城市集中了该州大部分无家可归人口。——见 Lecture 13《exam2》" 
+        explanation: "老年性耳聋（Presbycusis）是后天获得性听力损失最常见的原因，随着年龄增长，听觉系统自然退化。——见相关听力障碍病因讲义" 
     },
     q7: { 
-        question: "what caused the recent rise in homelessness rates in the u.s.",
+        question: "Rh incompatibility",
         options: {
-            a: "extremely high housing costs",
-            b: "increased medicaid subsidies",
-            c: "increasing population of older adults",
-            d: "fewer people being eligible for snap (the supplemental nutrition assistance program) benefits"
+            a: "Develops when both a pregnant mother and a fetus have Rh positive blood type",
+            b: "Develops when a pregnant mother's blood is Rh negative and fetus's blood is Rh positive",
+            c: "Develops when a pregnant mother's blood is Rh positive and fetus' blood is Rh negative",
+            d: "Develops when both a pregnant mother and a fetus have Rh negative blood type"
         },
-        correctAnswer: "a", 
-        explanation: "美国无家可归人数近年来显著上升，主要原因是住房成本极高。房租和房价上涨速度远超工资增长，使低收入家庭难以负担住房。尤其在大城市中，住房供需严重失衡，导致越来越多人失去稳定住所。——见 Lecture 13《exam2》" 
+        correctAnswer: "b", 
+        explanation: "Rh血型不合发生于母亲是Rh阴性血，而胎儿是Rh阳性血的情况。母体可能会产生抗体攻击胎儿的红细胞，导致溶血等并发症。——见相关产前发育与残疾成因讲义" 
     },
     q8: { 
-        question: "which of the following is not one of the benefits of leisure for people experiencing homelessness",
+        question: "Conductive hearing loss is often caused by",
         options: {
-            a: "helping people keep their mind off problems they are experiencing",
-            b: "helping to maintain physical and mental well-being",
-            c: "helping to maintain a sense of normalcy",
-            d: "helping to increase their isolation"
+            a: "An obstruction in the outer ear",
+            b: "The pathways to the brain or the brain itself being damaged",
+            c: "Malfunction of cochlea",
+            d: "Conductivity problem in the temporal lobe"
         },
-        correctAnswer: "d", 
-        explanation: "对无家可归者而言，休闲活动能带来重要的心理与社会效益：有助于减轻压力、改善身心健康、保持生活规律感与社会联系。休闲促进社会融入与归属感，而非增加孤立感。因此“帮助增加孤立”不是休闲的益处，而恰恰相反。——见 Lecture 13《exam2》" 
+        correctAnswer: "a", 
+        explanation: "传导性听力损失（Conductive hearing loss）通常是由于外耳或中耳的问题（如耳垢堵塞、耳部感染等）阻碍了声音传入内耳。——见相关听力障碍分类讲义" 
     },
     q9: { 
-        question: "what was the life expectancy in the u.s. in 2024",
+        question: "Which of the following is a core diagnostic criterion of autism spectrum disorder?",
         options: {
-            a: "84.1 years",
-            b: "79.1 years",
-            c: "67.3 years",
-            d: "93.1 years"
+            a: "Uncontrollable tonic-clonic seizures",
+            b: "Ongoing social-emotional problems that include difficulty communicating and interacting with others",
+            c: "Frequent hallucinations",
+            d: "Sleep disturbance"
         },
         correctAnswer: "b", 
-        explanation: "2024 年美国的平均预期寿命为 79.1 岁。男性约 76.7 岁，女性约 81.6 岁。相比疫情期间的下降，寿命已恢复并略有增长。寿命差异与性别、种族及社会经济因素有关。——见 Lecture 14《exam2》" 
+        explanation: "自闭症谱系障碍（ASD）的核心诊断标准之一是持续的社交沟通和社交互动缺陷（如难以进行正常的对话、缺乏眼神交流等）。——见相关神经发育障碍讲义" 
     },
     q10: { 
-        question: "what is the main reason we are experiencing a rapid increase in the number of older adults in the u.s.",
+        question: "Which of the following is one of the three diagnostic criteria of intellectual disability (intellectual developmental disorder), according to DSM-5TR?",
         options: {
-            a: "lower fertility rates among younger generations",
-            b: "increase in life expectancy",
-            c: "immigration of older people from europe",
-            d: "immigration of older people from asia"
+            a: "Sensory processing differences",
+            b: "Deficits in intellectual functioning",
+            c: "Onset in adulthood (symptoms appearing after 18-years of age)",
+            d: "Impairment of physical functioning"
         },
         correctAnswer: "b", 
-        explanation: "b. increase in life expectancy (预期寿命增加)，或者（如果选项里有的话）Baby boom generation is retiring。因为这两者是真正 增加 老年人绝对数量的因素。。——见 Lecture 14《exam2》" 
+        explanation: "根据DSM-5标准，智力障碍的诊断标准包括：智力功能缺陷（如推理、解决问题能力差）、适应性功能缺陷，且这些缺陷必须发生在发育期内。——见相关智力障碍诊断讲义" 
     },
     q11: { 
-        question: "what is the main source of income for people over 65 years of age",
+        question: "Which of the following is the most common cause of intellectual disability?",
         options: {
-            a: "earnings",
-            b: "pensions",
-            c: "assets",
-            d: "social security"
+            a: "Alcohol use during pregnancy",
+            b: "Genetic/chromosomal",
+            c: "Brain damage during prolonged and difficult delivery",
+            d: "Drug use by the expectant mother"
         },
-        correctAnswer: "d", 
-        explanation: "对于美国 65 岁及以上的老年人而言，社会保障金（Social Security）是主要收入来源。它为退休后的人群提供稳定的月度补助，确保基本生活水平。虽然部分人还有储蓄、养老金或投资收益，但社会保障仍是大多数老年人的经济支柱，有助于降低老年贫困率。——见 Lecture 14《exam2》" 
+        correctAnswer: "b", 
+        explanation: "根据目前医学统计，遗传和染色体异常（如唐氏综合征、脆性X染色体综合征等）是导致智力障碍的最常见已知原因。——见相关智力障碍病因讲义" 
     },
     q12: { 
-        question: "life expectancy",
+        question: "Fetal alcohol syndrome is diagnosed, among others, by",
         options: {
-            a: "is a person’s outlook on their financial and psychological well-being in the future",
-            b: "relates to the ratio of births to deaths per 1000 population",
-            c: "is a fixed maximum age for the human species",
-            d: "is the projected number of years that an individual is expected to live based on their genetic heritage and on the environmental conditions"
+            a: "Smooth groove (philtrum) between the nose and the upper lip among newborns",
+            b: "Unusually large head diameter among newborns",
+            c: "Five lines on the palm of newborns' hand",
+            d: "Unusually fat upper lip among newborns"
         },
-        correctAnswer: "d", 
-        explanation: "“预期寿命”（life expectancy）指根据个人的遗传因素与环境条件所预计的平均寿命。它反映出生理、心理与社会条件对寿命的综合影响。并非固定不变的年龄上限，而是随医疗水平与生活环境改善而变化的统计指标。——见 Lecture 14《exam2》" 
+        correctAnswer: "a", 
+        explanation: "胎儿酒精综合征（FAS）的面部特征之一是人中（philtrum，即鼻子和上唇之间的区域）变平滑，且上唇通常较薄。——见相关发育障碍特征讲义" 
     },
     q13: { 
-        question: "the senior dependency ratio (also called old age dependency ratio) is calculated by",
+        question: "Atlantoaxial Instability is",
         options: {
-            a: "dividing the population aged 65 and older by the working-age population (18–64) and multiplying it by 100",
-            b: "multiplying the population aged 65 and older by the working-age population (18–64)",
-            c: "dividing the working-age population (18–64) by the population aged 65 and older and multiplying it by 100",
-            d: "dividing the population aged 65 and older by the population under 18 years of age"
+            a: "A greater than normal mobility of the two upper thoracic vertebrae",
+            b: "A greater than normal mobility of the two upper cervical vertebrae",
+            c: "A fusion of the two upper sacral vertebrae",
+            d: "An opening within the two upper lumbar vertebrae"
         },
-        correctAnswer: "a", 
-        explanation: "老年抚养比（Senior Dependency Ratio, SDR）表示 65 岁以上人口相对于劳动年龄人口（18–64 岁）的比例，并以百分比表示。该比值越高，说明每个劳动者需负担的老年人口越多，会影响社会保障体系和经济活力。——见 Lecture 14《exam2》" 
+        correctAnswer: "b", 
+        explanation: "寰枢椎不稳（Atlantoaxial Instability）是指颈椎的第一节（寰椎）和第二节（枢椎）之间的活动度异常增大，常见于唐氏综合征患者。——见相关脊柱病理讲义" 
     },
     q14: { 
-        question: "which three states have the highest proportion of older adults",
+        question: "Tonic-clonic seizures",
         options: {
-            a: "texas, california, and nevada",
-            b: "maine, florida, and vermont",
-            c: "oregon, maryland, and utah",
-            d: "new york, north dakota, and illinois"
+            a: "Involve convulsions with a complete loss of consciousness",
+            b: "Involve convulsions that start in one part of a limb and then spread throughout the entire side of a body",
+            c: "Are brief \"absences\" when a person stares into space and does not respond to external stimuli",
+            d: "Involve cells from one hemisphere of the brain"
         },
-        correctAnswer: "b", 
-        explanation: "缅因州、佛罗里达州和佛蒙特州是美国老年人口比例最高的三个州。佛罗里达州因气候温暖吸引退休移民，缅因与佛蒙特则因出生率低和青年外流造成老龄化突出。这些州因此对医疗、养老住房及社会服务需求增加。——见 Lecture 14《exam2》" 
+        correctAnswer: "a", 
+        explanation: "强直-阵挛发作（大发作）是癫痫最严重的形式之一，特征包括意识完全丧失和全身肌肉的剧烈抽搐（convulsions）。——见相关癫痫分类讲义" 
     },
     q15: { 
-        question: "what is not true about changes in the cardiovascular system related to aging",
+        question: "Which of the following should you do when a person is experiencing a tonic-clonic seizure?",
         options: {
-            a: "as people age, their arterial walls stiffen",
-            b: "as people age, their heart valves calcify",
-            c: "as people age, their cardiac output increases",
-            d: "as people age, their blood vessels narrow"
+            a: "Move the person to a hard surface",
+            b: "Turn the person's head to the side if they are vomiting",
+            c: "Put an object in a person's mouth",
+            d: "Imediatelly call 911"
         },
-        correctAnswer: "c", 
-        explanation: "随着年龄增长，心血管系统发生多种变化：动脉壁变硬、心脏瓣膜钙化、血管变窄，而心输出量（每分钟泵血量）通常下降，因为心肌收缩能力减弱。因此“心输出量随年龄增加而上升”是错误的。——见 Lecture 15《exam2》" 
+        correctAnswer: "b", 
+        explanation: "当癫痫发作伴有呕吐时，应将患者头部侧向一边，以防止呕吐物吸入气管导致窒息。不应强行往口中塞东西。——见相关急救护理讲义" 
     },
     q16: { 
-        question: "fluid intelligence",
+        question: "Stroke is",
         options: {
-            a: "is genetically determined",
-            b: "increases with age",
-            c: "is represented by the accumulated knowledge or abilities",
-            d: "remains largely unchanged after puberty"
+            a: "A cerebrovascular incident when a portion of the brain receives unusually high blood flow",
+            b: "A cerebrovascular incident always involving both hemispheres of the brain",
+            c: "A cerebrovascular incident that takes at least 24 hours to develop",
+            d: "A cerebrovascular incident when a portion of the brain is deprived of blood"
         },
         correctAnswer: "d", 
-        explanation: "“流体智力”（Fluid intelligence）是指在不依赖已有知识的情况下进行逻辑推理、抽象思考和解决新问题的能力。它通常在青年时期达到峰值，随后随年龄增长而逐渐下降，与“晶体智力”不同，后者依赖经验与学习积累。（注：选项d '青春期后基本不变' 是对'青年期达峰'的近似描述，在选项中相对最佳）——见 Lecture 16《exam2》" 
+        explanation: "中风（脑卒中）是指由于脑部血液供应中断（缺血）或血管破裂（出血），导致脑组织缺氧和损伤的脑血管意外。——见相关脑血管疾病定义讲义" 
     },
     q17: { 
-        question: "balance leisure activities refer to activities that",
+        question: "Transient ischemic attacks",
         options: {
-            a: "older adults can no longer perform due to problems with maintaining balance",
-            b: "do not require much skills and resources, and remain stable over the life of an individual",
-            c: "require skills and resources, and change in response to changing roles and responsibilities",
-            d: "are prescribed to older adults by medical professionals since they help them to improve balance"
+            a: "Mark the last stage in the progression of stroke",
+            b: "Are uncontrollable seizures that often accompany the onset of stroke",
+            c: "Are small strokes that often occur before a major stroke episode",
+            d: "Are brief episodes when the part of the brain affected by stroke receives high amount of blood flow"
         },
         correctAnswer: "c", 
-        explanation: "“平衡性休闲活动”（Balance leisure activities）指那些需要一定技能与资源，并随生活角色或责任变化而调整的活动，如旅行、志愿服务、运动等。它们帮助个体在不同阶段保持成长与生活满足感。——见 Lecture 16《exam2》" 
+        explanation: "短暂性脑缺血发作（TIA），俗称“小中风”，是暂时性的脑血流中断，常被视为未来发生严重中风的前兆警报。——见相关中风预警讲义" 
     },
     q18: { 
-        question: "which of the following is not an example of a core leisure activity",
+        question: "Which one of the following is an example of an uncontrollable stroke risk factor?",
         options: {
-            a: "basketball",
-            b: "reading",
-            c: "walking",
-            d: "watching tv"
+            a: "Age",
+            b: "Smoking",
+            c: "Diet",
+            d: "Drinking alcohol"
         },
         correctAnswer: "a", 
-        explanation: "“核心休闲活动”（Core leisure activities）是指简单、日常、低成本且容易持续进行的活动，如阅读、散步、看电视等。篮球属于需要较多体能、设备与团队协作的“平衡型休闲活动”，因此不属于核心休闲范畴。——见 Lecture 16《exam2》" 
+        explanation: "中风的风险因素分为可控和不可控。吸烟、饮食和饮酒是生活方式选择（可控），而年龄、性别、种族和遗传是不可控的生理因素。——见相关疾病风险因素讲义" 
     },
     q19: { 
-        question: "which of the following is an example of a disability",
+        question: "Cerebral thrombosis is a form of stroke when",
         options: {
-            a: "severed nerves in the spine",
-            b: "inability to attend school",
-            c: "inability to walk",
-            d: "a broken leg"
+            a: "A blood clot travels to the brain from another part of the body",
+            b: "A blood vessel bursts in the brain",
+            c: "A blood clot forms in an artery in the brain",
+            d: "A heart stops beating and pumping blood to the brain"
         },
         correctAnswer: "c", 
-        explanation: "“残疾”（Disability）指因身体或心理功能障碍而限制个体执行日常活动的长期状态。行走能力丧失直接影响日常生活与社会参与，是典型的残疾表现。而神经损伤是“损伤”（impairment），不是功能限制本身。——见 Lecture 17《exam2》" 
+        explanation: "脑血栓（Cerebral thrombosis）是缺血性中风的一种，指血栓直接在脑动脉内形成并阻塞血流（区别于脑栓塞，后者是血块从别处游走到脑部）。——见相关中风分类讲义" 
     },
     q20: { 
-        question: "arthritis is",
+        question: "The most common symptom of stroke includes",
         options: {
-            a: "a group of conditions that involve inflammation of the joint",
-            b: "a group of conditions that involve progressive changes in the central nervous system",
-            c: "a group of conditions that involve degeneration and weakness of voluntary muscles",
-            d: "a group of conditions that involve degeneration of the motor portions of the brain"
+            a: "Sudden weakness or numbness on one side of the body",
+            b: "An uncontrollable seizure",
+            c: "Intense vomiting",
+            d: "Hallucinations and dilated pupils"
         },
         correctAnswer: "a", 
-        explanation: "“关节炎”（Arthritis）是一类导致关节发炎、疼痛与僵硬的疾病总称，常见类型包括骨关节炎与类风湿性关节炎。其主要表现为关节红肿与运动受限，属于进行性或慢性炎症疾病，而非中枢神经或肌肉退化问题。——见 Lecture 17《exam2》" 
+        explanation: "中风最典型的症状之一是单侧身体突然出现无力、麻木或瘫痪（偏瘫），这是因为大脑一侧受损影响了对侧身体的控制。——见相关中风症状讲义" 
     },
     q21: { 
-        question: "what are the common symptoms of osteoarthritis",
+        question: "Hemianopsia is a symptom of stroke that involves",
         options: {
-            a: "stomach aches, rashes, dizziness, and blurred vision",
-            b: "flu-like symptoms (e.g., feeling “sick all over,” fever, and enlarged lymph nodes)",
-            c: "stiffness of joints and pain felt during movement",
-            d: "hair loss and problems with concentration"
+            a: "Disappearance of half of the visual field",
+            b: "Paralysis or weakness",
+            c: "Uncontrollable crying or laughter",
+            d: "Inability to communicate with an outside world"
         },
-        correctAnswer: "c", 
-        explanation: "骨关节炎（Osteoarthritis）是一种由关节软骨退化引起的慢性疾病，其典型症状为关节僵硬、疼痛及活动受限。疼痛在运动时加剧、休息后缓解，常见于膝、髋、脊柱及手指关节。病程进展会导致关节肿胀、摩擦音及活动范围减少。——见 Lecture 17《exam2》" 
+        correctAnswer: "a", 
+        explanation: "偏盲（Hemianopsia）是中风常见的视觉后遗症，指患者视野的一半（通常是左侧或右侧）缺失。——见相关中风后遗症讲义" 
     },
     q22: { 
-        question: "many people with dyskinetic cerebral palsy experience",
+        question: "Receptive (Wernicke's) aphasia is one of the symptoms of stroke that involves",
         options: {
-            a: "uncontrolled, slow, twisting movements of muscles, particularly in the limbs, face, and trunk",
-            b: "disturbance of balance and a sense of direction",
-            c: "intention tremor",
-            d: "stiff and permanently contracted muscles"
+            a: "Paralysis on one side of the body",
+            b: "Impaired understanding of spoken or written language",
+            c: "Difficulty articulating thoughts into coherent speech",
+            d: "Loss of control of bladder function"
         },
-        correctAnswer: "a", 
-        explanation: "手足徐动型脑性瘫痪（Dyskinetic cerebral palsy）是一种以不自主、缓慢且扭曲的肢体运动为特征的脑瘫类型。常影响手臂、腿和面部肌肉，表现为无法控制的扭动。其原因是基底节受损，导致运动调节障碍。——见 Lecture 17《exam2》" 
+        correctAnswer: "b", 
+        explanation: "接收性失语症（Wernicke's aphasia）患者虽然说话流利但内容无意义，且主要特征是难以理解别人的口语或书面语言。——见相关语言障碍讲义" 
     },
     q23: { 
-        question: "common symptoms of multiple sclerosis include",
+        question: "If you suspect that a person is having a stroke you should",
         options: {
-            a: "numbness and tingling in hands and feet",
-            b: "frequent and recurring headaches",
-            c: "paralysis of chest muscles",
-            d: "abnormal growth of facial hair"
+            a: "Administer CPR",
+            b: "Squeeze the neck of the person to prevent excessive amounts of blood from reaching the brain",
+            c: "Do nothing and wait for the person to get better",
+            d: "Call 911 and make sure the person is immediately transported to a hospital"
         },
-        correctAnswer: "a", 
-        explanation: "多发性硬化症（Multiple Sclerosis, MS）是一种中枢神经系统自身免疫疾病，会损伤神经纤维外层的髓鞘，导致神经信号传导障碍。常见症状包括四肢麻木、刺痛、疲劳、协调困难及视力模糊等。其中手脚的感觉异常是最早期和最常见的表现之一。——见 Lecture 17《exam2》" 
+        correctAnswer: "d", 
+        explanation: "中风是医疗急症，时间就是大脑（Time is Brain）。一旦发现疑似症状，必须立即拨打急救电话送医，以便在黄金窗口期内进行溶栓等治疗。——见相关中风急救讲义" 
     },
     q24: { 
-        question: "what is true about childhood muscular dystrophy",
+        question: "Psychological disorders",
         options: {
-            a: "it affects mostly girls",
-            b: "it is the least serious form of muscular dystrophy",
-            c: "it affects mostly boys",
-            d: "it can easily be cured with antibiotics"
+            a: "Are more common and less severe than behavioral disorders",
+            b: "Do not produce significant distress or impairment in a person's daily functioning",
+            c: "Are clinically significant disturbances in behavior that harm the person or others",
+            d: "Are clinically significant disturbances in cognition or emotion regulation"
         },
-        correctAnswer: "c", 
-        explanation: "儿童型肌营养不良（尤其是杜氏肌营养不良，Duchenne Muscular Dystrophy, DMD）主要影响男孩，因为其致病基因位于 X 染色体上。女性多为携带者而不发病。DMD 表现为肌肉无力、萎缩，通常在幼年期发作，目前尚无治愈方法，但可通过康复和药物延缓进展。——见 Lecture 17《exam2》" 
+        correctAnswer: "d", 
+        explanation: "心理障碍的定义通常指在认知、情绪调节或行为方面出现临床显著的紊乱，且这些紊乱反映了心理功能的生物、心理或发展过程的功能障碍。——见相关心理病理学定义讲义" 
     },
     q25: { 
-        question: "limb girdle muscular dystrophy",
+        question: "One of the most common symptoms of a major depressive disorder is/are",
         options: {
-            a: "involves paralysis of leg muscles",
-            b: "is the most serious form of muscular dystrophy",
-            c: "involves paralysis of shoulder and hip (pelvic) muscles",
-            d: "involves facial paralysis"
+            a: "Periods of excessive happiness and laughing spells",
+            b: "Markedly diminished interest/pleasure in all/almost all activities",
+            c: "Increased interest in social activities",
+            d: "Increased ability to make quick decisions"
         },
-        correctAnswer: "c", 
-        explanation: "肢带型肌营养不良（Limb Girdle Muscular Dystrophy, LGMD）是一组遗传性肌肉疾病，主要影响肩带与骨盆带区域的肌肉，表现为逐渐加重的无力与萎缩。患者常表现为上楼、提举困难，病情进展缓慢但长期影响生活能力。——见 Lecture 17《exam2》" 
+        correctAnswer: "b", 
+        explanation: "重度抑郁症（MDD）的核心症状之一是快感缺失（Anhedonia），即对几乎所有活动明显失去兴趣或愉悦感。——见相关情绪障碍讲义" 
     },
     q26: { 
-        question: "what is true about polio",
+        question: "Bipolar II disorder",
         options: {
-            a: "it is caused by temporary changes in the electrical functioning of the brain",
-            b: "one of the symptoms of polio is excruciating pain in lower extremities",
-            c: "it involves dizziness and hallucinations",
-            d: "it can cause paralysis or weakness"
+            a: "Is a mental illness characterized by extreme hallucinations that range from positive and nice to negative and violent",
+            b: "Is a psychological disorder characterized by at least one manic episode",
+            c: "Is a cognitive disability caused by the magnetic imbalance in the brain",
+            d: "Is a psychological disorder characterized by at least 1 hypomanic and at least 1 major depressive episode with no history of manic episodes"
         },
         correctAnswer: "d", 
-        explanation: "脊髓灰质炎（Polio）是一种由脊髓灰质炎病毒引起的传染病。多数感染者症状轻微，但严重病例中病毒会攻击脊髓中的运动神经元，导致肌肉无力或永久性瘫痪。通过疫苗接种，该疾病在全球范围内已大幅减少。——见 Lecture 17《exam2》" 
+        explanation: "双相II型障碍的特征是至少经历过一次轻躁狂（Hypomanic）发作和一次重度抑郁发作，且从未出现过狂躁（Manic）发作。——见相关双相障碍分类讲义" 
     },
     q27: { 
-        question: "spina bifida",
+        question: "What are the symptoms of the manic phase of bipolar I disorder?",
         options: {
-            a: "is a congenital deformity of the brain in which one or more of the lobes fail to develop",
-            b: "is a congenital deformity of the upper respiratory system",
-            c: "is a congenital deformity of the vertebrae in which one or more of the vertebral arches fail to close",
-            d: "is a congenital abnormality of the cardiovascular system in which the heart muscle stops to develop in the 20th week of pregnancy"
-        },
-        correctAnswer: "c", 
-        explanation: "脊柱裂（Spina bifida）是一种神经管缺陷，在胎儿早期发育阶段，部分椎弓未能完全闭合导致脊髓暴露或受损。严重者会造成下肢瘫痪或大小便失禁。病变可分为隐性脊柱裂与显性脊柱裂两类。——见 Lecture 17《exam2》" 
-    },
-    q28: { 
-        question: "a person with spina bifida occulta has",
-        options: {
-            a: "a dimple or a dark-colored birthmark at the level of spinal opening",
-            b: "a cyst on the spine that contains cerebrospinal fluid",
-            c: "a brown or pinkish “sack” on their spine",
-            d: "one extra vertebra in their spine"
-        },
-        correctAnswer: "a", 
-        explanation: "隐性脊柱裂（Spina bifida occulta）是最轻微的类型，通常仅表现为一处椎弓未闭，但脊髓与神经未受损。外观上常见背部有小凹陷、毛发丛或深色胎记。多无症状，常在影像检查时偶然发现。——见 Lecture 17《exam2》" 
-    },
-    q29: { 
-        question: "an open head injury refers to",
-        options: {
-            a: "an injury that does not have any negative impact on the brain structure",
-            b: "an injury in which rapid release of the brain tissue from the brain cavity was stopped early enough to prevent any serious brain damage",
-            c: "an entry of an object into the brain through the skull or an inward cracking of the skull",
-            d: "an injury that involves a brief loss of consciousness"
-        },
-        correctAnswer: "c", 
-        explanation: "开放性颅脑损伤（Open head injury）是指外物穿透颅骨或导致颅骨塌陷，从而直接损伤脑组织的情况。常见于枪击、锐器或严重车祸。此类损伤风险极高，易发生感染、出血及严重脑功能障碍。——见 Lecture 18《exam2》" 
-    },
-    q30: { 
-        question: "an injury to the frontal lobe can lead to",
-        options: {
-            a: "changes in personality and impaired decision-making",
-            b: "changes in breathing, heart rate, and blood pressure",
-            c: "changes in visual perception and hearing",
-            d: "problems with motor coordination and balance"
-        },
-        correctAnswer: "a", 
-        explanation: "额叶损伤（Frontal lobe injury）常导致个体在行为与情绪上发生显著变化，如冲动、判断力下降、动机缺乏或性格转变。额叶主管高级认知功能（如计划、决策与社会行为），因此受损后多表现为执行功能障碍，而非感觉或运动能力丧失。——见 Lecture 18《exam2》" 
-    },
-    q31: { 
-        question: "cte (chronic traumatic encephalopathy) is",
-        options: {
-            a: "a non-progressive disease resulting from damage to the motor portion of the brain",
-            b: "a progressive degenerative disease of the brain resulting from repeated tbis",
-            c: "a progressive disease of the central nervous system in which a protective tissue at the nerve endings (myelin) disappears",
-            d: "a viral disease of the central nervous system caused by a virus"
-        },
-        correctAnswer: "b", 
-        explanation: "慢性创伤性脑病（Chronic Traumatic Encephalopathy, CTE）是一种由反复脑部外伤（如运动员或军人常见的脑震荡）引起的渐进性神经退行性疾病。其特征是脑内异常 tau 蛋白沉积，导致记忆力减退、情绪波动、冲动行为及认知障碍。随着损伤累积，脑组织逐步退化。——见 Lecture 18《exam2》" 
-    },
-    q32: { 
-        question: "the most common cause of spinal cord injuries is/are",
-        options: {
-            a: "falls",
-            b: "violence",
-            c: "motor vehicle accidents",
-            d: "sport accidents"
-        },
-        correctAnswer: "c", 
-        explanation: "机动车事故是脊髓损伤（SCI）的最常见原因，尤其在青壮年群体中占多数。撞击或翻车时强烈的外力可导致脊髓压迫、撕裂或断裂，从而引发瘫痪。其他常见原因包括跌倒、暴力事件和运动伤害，但车祸仍是首要来源。——见 Lecture 18《exam2》" 
-    },
-    q33: { 
-        question: "which of the following could be affected by an injury to the lumbar vertebra",
-        options: {
-            a: "arm muscles",
-            b: "chest muscles",
-            c: "head and neck muscles",
-            d: "leg muscles"
+            a: "Crying spells",
+            b: "Fatigue",
+            c: "Diminished interest in pleasure",
+            d: "Inflated self-esteem or grandiosity"
         },
         correctAnswer: "d", 
-        explanation: "腰椎（Lumbar vertebra）位于下背部，负责支撑身体重量并保护控制下肢运动的神经。若此处受伤，常导致双腿无力、麻木甚至瘫痪。腰椎损伤不影响上肢或呼吸功能，但会严重限制行走和站立能力。——见 Lecture 18《exam2》" 
+        explanation: "双相I型障碍的狂躁期（Manic phase）症状包括极度兴奋、精力旺盛，以及典型的自尊膨胀或夸大妄想（Grandiosity）。——见相关情绪障碍症状讲义" 
+    },
+    q28: { 
+        question: "Schizophrenia spectrum disorder is a psychological disorder in which people experience",
+        options: {
+            a: "Extreme procrastination",
+            b: "Multiple personalities",
+            c: "Hallucinations",
+            d: "Feelings of extreme happiness and elation"
+        },
+        correctAnswer: "c", 
+        explanation: "精神分裂症谱系障碍的主要特征之一是感知觉异常，患者常经历幻觉（Hallucinations），即在没有外部刺激的情况下看到或听到不存在的事物。——见相关精神分裂症讲义" 
+    },
+    q29: { 
+        question: "Hallucinations",
+        options: {
+            a: "Are thoughts about unreal situations",
+            b: "Involve seeing, hearing, or feeling things that are not real",
+            c: "Are pathological changes in the brain detectable by MRI scans",
+            d: "Are some of the symptoms of bipolar disorder that involve feelings of superiority followed by feelings of worthlessness"
+        },
+        correctAnswer: "b", 
+        explanation: "幻觉是指在缺乏外界客观刺激的情况下产生的感知体验，包括幻听、幻视、幻触等，感觉像是真实的但实际并不存在。——见相关精神病理学症状讲义" 
+    },
+    q30: { 
+        question: "Positive symptoms of schizophrenia involve",
+        options: {
+            a: "Disorganized speech",
+            b: "Delusions",
+            c: "Catatonic behavior",
+            d: "Reduced expression of emotions"
+        },
+        correctAnswer: "b", 
+        explanation: "精神分裂症的“阳性症状”是指正常功能之外“多出来”的异常表现，包括妄想（Delusions）和幻觉。（注：虽然言语混乱也是阳性症状，但本题选中了妄想）。——见相关精神分裂症症状分类讲义" 
+    },
+    q31: { 
+        question: "People providing recreational activities to individuals with schizophrenia spectrum disorders should",
+        options: {
+            a: "Avoid exposing participants to high-distraction environments (e.g., crowded places)",
+            b: "Involve participants in high-stakes, large group activities first, eventually progressing to solitary activities",
+            c: "Expose participants to bright lights and high noise environments (e.g., clubs) first, subsequently progressing to quieter environments",
+            d: "Involve participants in water activities without supervision"
+        },
+        correctAnswer: "a", 
+        explanation: "精神分裂症患者常存在感觉过滤困难，高刺激或高干扰的环境（如拥挤嘈杂处）容易引发焦虑或症状加重，因此康复活动应尽量避免此类环境。——见相关康复治疗环境讲义" 
+    },
+    q32: { 
+        question: "Generalized anxiety disorder is characterized by",
+        options: {
+            a: "A fear of interaction with one's coworkers",
+            b: "An intense fear of a specific object or situation (e.g., spiders, dogs, germs)",
+            c: "Excessive anxiety and worry (e.g., about one's health, money, or career)",
+            d: "Reliving a traumatic event experienced in the past"
+        },
+        correctAnswer: "c", 
+        explanation: "广泛性焦虑障碍（GAD）的特征是对日常生活中的多种事物（如健康、金钱、工作）表现出持续的、过度的、难以控制的焦虑和担忧。——见相关焦虑障碍讲义" 
+    },
+    q33: { 
+        question: "Which of the following are major symptoms of panic disorder?",
+        options: {
+            a: "Palpitations, pounding heart, or accelerated heart rate",
+            b: "Loss of sense of smell and increased sensitivity to light",
+            c: "Blushing and a rapid decrease in blood pressure",
+            d: "Hallucinations and headaches"
+        },
+        correctAnswer: "a", 
+        explanation: "惊恐障碍（Panic Disorder）发作时的典型生理症状包括心悸、心跳加速、出汗、颤抖以及濒死感。——见相关焦虑障碍症状讲义" 
     },
     q34: { 
-        question: "what is the most common cause of death among people who have survived the initial spinal cord injury",
+        question: "A person with a body-dysmorphic disorder",
         options: {
-            a: "suicide",
-            b: "respiratory diseases / pneumonia",
-            c: "heart attack",
-            d: "bedsores"
+            a: "Is preoccupied with their good looks",
+            b: "Is preoccupied with a perceived defect in their physical appearance",
+            c: "Believes that others should admire their physical appearance",
+            d: "Believes that they should have been born in a different body"
         },
         correctAnswer: "b", 
-        explanation: "在幸存初次脊髓损伤的患者中，呼吸系统疾病（特别是肺炎）是最主要的死亡原因。尤其是颈段脊髓损伤，会削弱呼吸和咳嗽肌肉功能，增加感染风险。呼吸障碍及肺部感染成为长期并发症中最致命的因素。——见 Lecture 18《exam2》" 
+        explanation: "躯体变形障碍（Body Dysmorphic Disorder）患者会过度关注自己外表中某些微小的或想象出来的缺陷，并因此感到极度痛苦。——见相关强迫相关障碍讲义" 
     },
     q35: { 
-        question: "quadriplegia",
+        question: "Pica is an eating disorder in which people",
         options: {
-            a: "is a condition in which people experience partial or complete loss of function in both their arms and legs",
-            b: "is a condition in which people experience partial or complete loss of function only in their legs",
-            c: "is a condition in which people experience partial or complete loss of function only in their arms",
-            d: "results from an injury to the sacral area in the spine"
+            a: "Have severe cravings for fruit",
+            b: "Avoid eating raw meat",
+            c: "Eat nonfood substances (e.g., dirt, paint)",
+            d: "Avoid eating food after midnight"
         },
-        correctAnswer: "a", 
-        explanation: "四肢瘫（Quadriplegia 或 Tetraplegia）是由颈椎区脊髓损伤引起的，导致上肢与下肢全部或部分运动及感觉功能丧失。严重者还可能影响呼吸肌群功能。损伤部位越高，功能受限越严重。——见 Lecture 18《exam2》" 
+        correctAnswer: "c", 
+        explanation: "异食癖（Pica）是一种进食障碍，特征是持续食用非营养性、非食物物质（如泥土、油漆、纸张等）。——见相关进食障碍讲义" 
     },
     q36: { 
-        question: "the numbers of veterans experiencing homelessness in the u.s. are increasing",
+        question: "A person who suffers from an intermittent explosive disorder",
         options: {
-            a: "true",
-            b: "false"
+            a: "Has an urge to make explosive devices",
+            b: "Is pathologically afraid of fireworks",
+            c: "Has recurrent behavioral outbursts (extreme expressions of anger) that are disproportionate to the provocation or potential stressors",
+            d: "Has intermittent dreams of explosions often following military deployment"
         },
-        correctAnswer: "a", 
-        explanation: "近年来，美国退伍军人（Veterans）无家可归人数在经历一度下降后又出现上升趋势。主要原因包括住房成本上涨、心理健康问题（如 PTSD）、药物滥用及医疗服务不足。虽然政府提供住房援助项目，但仍无法满足需求。——见 Lecture 13《exam2》" 
+        correctAnswer: "c", 
+        explanation: "间歇性暴怒障碍（Intermittent Explosive Disorder）表现为反复出现无法控制的冲动性攻击行为或暴怒发作，且发作强度与诱因明显不成比例。——见相关破坏性行为障碍讲义" 
     },
     q37: { 
-        question: "short term memory is the memory where information is stored and temporarily held",
+        question: "Which of the following is a common symptom of oppositional defiant disorder?",
         options: {
-            a: "true",
-            b: "false"
+            a: "High level of personal responsibility",
+            b: "High emphaty for others",
+            c: "Increased ability to plan ahead",
+            d: "Angry/irritable mood"
         },
-        correctAnswer: "a", 
-        explanation: "短期记忆（Short-term memory）是指信息在大脑中短暂保持与操作的能力，通常持续几秒到一分钟。若不主动复述，信息会迅速消失。短期记忆是工作记忆系统的核心部分，在日常思考、决策和语言理解中起关键作用。——见 Lecture 16《exam2》" 
+        correctAnswer: "d", 
+        explanation: "对立违抗障碍（ODD）通常表现为持续的愤怒/易激惹情绪、争辩/挑衅行为以及报复心理。——见相关儿童行为障碍讲义" 
     },
     q38: { 
-        question: "NVG-291 injectable drug is one of the most promising new treatments for SCIs",
+        question: "Which of the following is a Factor 1 symptom of psychopathy?",
         options: {
-            a: "true",
-            b: "false"
+            a: "Violent behavior",
+            b: "Lack of long-term goals",
+            c: "Superficial charm",
+            d: "Irresponsibility"
         },
-        correctAnswer: "a", 
-        explanation: "NVG-291 是一种新型注射药物，被认为是脊髓损伤（SCI）治疗领域的重大突破。它通过抑制抑制性分子作用，促进神经再生与重连，从而恢复部分运动功能。早期临床试验结果显示，该药能显著改善脊髓损伤患者的神经修复潜力。——见 Lecture 19《exam2》" 
+        correctAnswer: "c", 
+        explanation: "精神病态（Psychopathy）的因子1（人际/情感维度）症状包括表面魅力、自大、病态撒谎和缺乏同理心等；而暴力或缺乏目标属于因子2（生活方式/反社会维度）。——见相关人格障碍讲义" 
     },
     q39: { 
-        question: "chronic homelessness is defined by recurrent episodes, with at least three instances of homelessness within a year",
+        question: "The main symptom of a borderline personality disorder is",
         options: {
-            a: "true",
-            b: "false"
+            a: "Fear of abandonment",
+            b: "Rapidly shifting and shallow expression of emotions",
+            c: "Arrogant behavior or attitude",
+            d: "Lack of empathy"
         },
-        correctAnswer: "b", 
-        explanation: "“长期无家可归”（Chronic homelessness）的定义为连续无家可归至少一年，或在过去三年中经历四次或以上的无家可归，并伴有残疾、精神疾病或药物成瘾等状况。并非“三次以内的一年内重复”即可定义。——见 Lecture 13《exam2》" 
+        correctAnswer: "a", 
+        explanation: "边缘型人格障碍（BPD）的核心特征包括人际关系不稳定、自我形象不稳定，以及极度害怕被抛弃（无论是真实的还是想象的）。——见相关人格障碍讲义" 
     },
     q40: { 
-        question: "divorce rates among adults over 50 years of age are decreasing",
+        question: "Narcolepsy is characterized by",
         options: {
-            a: "true",
-            b: "false"
+            a: "Food cravings during sleep",
+            b: "Late sleep onset and early awakening",
+            c: "Disturbance in the structure of sleep (early onset of REM phase of sleep)",
+            d: "Abnormal pauses in breathing during sleep"
         },
-        correctAnswer: "b", 
-        explanation: "美国 50 岁以上人群的离婚率并未下降，反而在过去二十年持续上升，被称为“灰发离婚”（Gray Divorce）。这一现象与寿命延长、性别角色变化及女性经济独立性增强有关。许多中老年人选择在晚年追求个人幸福与自主生活。——见 Lecture 14《exam2》" 
+        correctAnswer: "c", 
+        explanation: "发作性睡病（Narcolepsy）的神经学特征是睡眠结构紊乱，患者在入睡后很快进入快速眼动期（REM），导致日间过度嗜睡和猝倒。——见相关睡眠障碍讲义" 
     }
 };
 
